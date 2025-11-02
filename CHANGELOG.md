@@ -1,5 +1,41 @@
 # Changelog - AI Image Gen Pro
 
+## Version 2.1.0 - Virtual Try-On Feature (2025-11-02)
+
+### 🎉 Major New Feature
+
+#### Virtual Try-On
+- 👔 **AI-Powered Clothing Visualization**: Upload a person photo and clothing item to see realistic try-on results
+- 📸 **Dual Image Input**: Seamlessly combines person and clothing images
+- 🎨 **Photorealistic Output**: High-quality 8K results with natural fabric draping
+- ⚙️ **Customization Options**: Add specific instructions for pose, lighting, setting
+- 🔢 **Batch Variations**: Generate up to 3 variations per try-on
+- 💾 **Instant Download**: Save results immediately
+- 📊 **Before/After Preview**: See original inputs with results
+
+### Use Cases
+- 🛍️ Online shopping decisions
+- 🎭 Fashion design visualization
+- 👗 Wardrobe planning and mixing
+- 🎁 Gift shopping previews
+- 📷 Photoshoot concept planning
+- 🎪 E-commerce product visualization
+
+### Technical Implementation
+- New API route: `/api/virtual-tryon`
+- New component: `VirtualTryOn.tsx`
+- Full modal interface with step-by-step workflow
+- Comprehensive documentation: `VIRTUAL-TRYON.md`
+- Integrated into main navigation
+
+### Documentation
+- ✅ Created comprehensive 385-line guide
+- ✅ Pro tips and best practices
+- ✅ Common issues and solutions
+- ✅ Examples and use case scenarios
+
+---
+
 ## Version 2.0.0 - Professional Upgrade (2025-11-02)
 
 ### 🎉 Major Features Added

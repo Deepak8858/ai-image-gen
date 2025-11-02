@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from 'react';
 import StatsCard from './components/StatsCard';
+import VirtualTryOn from './components/VirtualTryOn';
 
 interface GeneratedImage {
   id: string;
@@ -32,6 +33,7 @@ export default function Home() {
   const [warning, setWarning] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<GeneratedImage | null>(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load images from localStorage on mount
@@ -301,14 +303,39 @@ export default function Home() {
             </button>
           </div>
           <p className="text-lg font-bold">Powered by Gemini 2.5 Flash Image • Advanced Features • Pro Tools</p>
-          <div className="flex gap-4 mt-3 text-sm font-bold">
+          <div className="flex gap-4 mt-3 text-sm font-bold flex-wrap">
             <span>✨ Batch Generation</span>
             <span>🎭 Style Presets</span>
             <span>💾 Auto-Save</span>
             <span>🔍 Smart Search</span>
+            <span>👔 Virtual Try-On</span>
           </div>
         </div>
       </header>
+
+      {/* Quick Access Buttons */}
+      <div className="max-w-4xl mx-auto mb-8">
+        <div className="neo-card bg-neo-purple p-4">
+          <div className="flex gap-4 flex-wrap">
+            <button
+              onClick={() => setShowVirtualTryOn(true)}
+              className="neo-btn bg-neo-pink flex-1 min-w-[200px]"
+            >
+              👔 Virtual Try-On
+            </button>
+            <button
+              onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+              className="neo-btn bg-neo-blue flex-1 min-w-[200px]"
+              disabled={generatedImages.length === 0}
+            >
+              🖼️ View Gallery ({generatedImages.length})
+            </button>
+          </div>
+          <p className="text-xs font-bold mt-3">
+            💡 New! Try Virtual Try-On to see how clothes look on any person
+          </p>
+        </div>
+      </div>
 
       {/* Stats Dashboard */}
       {generatedImages.length > 0 && (
@@ -665,6 +692,11 @@ export default function Home() {
             </ol>
           </div>
         </div>
+      )}
+
+      {/* Virtual Try-On Modal */}
+      {showVirtualTryOn && (
+        <VirtualTryOn onClose={() => setShowVirtualTryOn(false)} />
       )}
     </main>
   );

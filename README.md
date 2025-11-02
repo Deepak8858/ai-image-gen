@@ -6,6 +6,7 @@ A **professional-grade AI image generation platform** powered by **Gemini 2.5 Fl
 
 ### Core Generation
 - 🖼️ **High-Quality Image Generation** - Powered by Google's latest Gemini 2.5 Flash Image model
+- 👔 **Virtual Try-On (NEW!)** - Upload person + clothing images for realistic try-on visualization
 - 📸 **Image-to-Image Generation** - Upload reference images to guide generation and editing
 - 🔢 **Batch Generation** - Generate up to 4 images simultaneously
 - 💬 **Conversational AI** - Describe scenes naturally, not just keywords
@@ -84,6 +85,17 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 2. Enter a prompt describing desired modifications
 3. Select style preset and aspect ratio
 4. Generate variations based on your reference
+
+### Virtual Try-On (NEW!)
+
+1. Click "👔 Virtual Try-On" button
+2. Upload a photo of a person
+3. Upload a photo of clothing item
+4. Add optional customization (pose, lighting, etc.)
+5. Generate realistic try-on visualization
+6. Perfect for online shopping, fashion design, and style planning
+
+**See [VIRTUAL-TRYON.md](VIRTUAL-TRYON.md) for detailed guide**
 
 ### Managing Your Gallery
 
