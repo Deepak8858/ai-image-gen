@@ -97,19 +97,20 @@ Custom CSS in `app/globals.css` defines the visual language:
 
 ### Key Features
 
-**Models:**
-- `imagen-4.0-ultra-generate-001` - 2K resolution (default)
-- `imagen-4.0-generate-001` - 1K resolution
-- `imagen-4.0-fast-generate-001` - Faster generation
-- `imagen-3.0-generate-002` - Legacy model
-
-**Aspect Ratios:** 1:1, 3:4, 4:3, 9:16, 16:9
+**Model:**
+- `gemini-2.5-flash-image` - Gemini 2.5 Flash Image (Nano Banana)
+- Automatic aspect ratio detection
+- Natural language understanding
 
 **Capabilities:**
-- Batch generation (1-4 images)
-- Reference image upload (guides generation)
+- **Batch generation (1-4 images)** with sequential processing
+- **Progress tracking** - Real-time updates during generation
+- **Partial failure handling** - Returns successful images even if some fail
+- **Rate limit protection** - 500ms delay between requests
+- Reference image upload (guides generation and editing)
 - Client-side download (base64 → blob URL)
 - Character limit: 480 chars for prompts
+- High-fidelity text rendering in images
 
 ## Development Guidelines
 

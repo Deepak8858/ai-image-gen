@@ -16,7 +16,9 @@ export default function Home() {
   const [referenceImagePreview, setReferenceImagePreview] = useState<string | null>(null);
   const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState<{current: number, total: number} | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [warning, setWarning] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +49,18 @@ export default function Home() {
 
     setLoading(true);
     setError(null);
+    setWarning(null);
+    setProgress({ current: 0, total: numberOfImages });
+
+    // Simulate progress updates (approximate timing: ~8 seconds per image)
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (!prev) return null;
+        // Increment current by 1 every ~8 seconds, but don't exceed total
+        const newCurrent = Math.min(prev.current + 1, prev.total);
+        return { current: newCurrent, total: prev.total };
+      });
+    }, 8000);
 
     try {
       let response;
@@ -76,12 +90,20 @@ export default function Home() {
         });
       }
 
+      clearInterval(progressInterval);
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to generate images');
       }
 
       const data = await response.json();
+      
+      // Handle partial failures
+      if (data.failed > 0) {
+        setWarning(`Successfully generated ${data.success} of ${numberOfImages} images. ${data.failed} failed.`);
+      }
+
       const newImages = data.images.map((img: any, index: number) => ({
         id: `${Date.now()}-${index}`,
         data: img.data,
@@ -90,10 +112,14 @@ export default function Home() {
       }));
 
       setGeneratedImages([...newImages, ...generatedImages]);
+      setProgress({ current: data.success, total: numberOfImages });
     } catch (err: any) {
+      clearInterval(progressInterval);
       setError(err.message || 'An error occurred while generating images');
     } finally {
       setLoading(false);
+      // Clear progress after a delay
+      setTimeout(() => setProgress(null), 2000);
     }
   };
 
@@ -199,17 +225,31 @@ export default function Home() {
             {loading ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="inline-block w-4 h-4 border-4 border-black border-t-transparent rounded-full animate-spin"></span>
-                Generating...
+                {progress ? `Generating ${progress.current + 1}/${progress.total}...` : 'Generating...'}
               </span>
             ) : (
               'Generate Images'
             )}
           </button>
 
+          {/* Progress Message */}
+          {progress && !loading && (
+            <div className="mt-4 neo-border bg-neo-green p-4">
+              <p className="font-bold">✓ Generated {progress.current} of {progress.total} images</p>
+            </div>
+          )}
+
+          {/* Warning Message */}
+          {warning && (
+            <div className="mt-4 neo-border bg-neo-orange p-4">
+              <p className="font-bold">⚠️ {warning}</p>
+            </div>
+          )}
+
           {/* Error Message */}
           {error && (
             <div className="mt-4 neo-border bg-neo-pink p-4">
-              <p className="font-bold">⚠️ Error: {error}</p>
+              <p className="font-bold">❌ Error: {error}</p>
             </div>
           )}
         </div>
