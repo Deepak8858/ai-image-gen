@@ -1,16 +1,17 @@
 # AI Image Generator 🎨
 
-A modern AI image generation platform powered by **Google Gemini Imagen 4.0 Ultra API** with a stunning **neobrutalism UI design**.
+A modern AI image generation platform powered by **Gemini 2.5 Flash Image (Nano Banana)** with a stunning **neobrutalism UI design**.
 
 ## ✨ Features
 
-- 🖼️ **High-Resolution Image Generation** - Up to 2K resolution with Imagen 4.0 Ultra
-- 📸 **Image-to-Image Generation** - Upload reference images to guide generation
-- 🎨 **Multiple Aspect Ratios** - Square, portrait, landscape, vertical, and wide formats
-- ⚡ **Multiple Models** - Choose from Imagen 4.0 Ultra, Standard, Fast, or Imagen 3
+- 🖼️ **High-Quality Image Generation** - Powered by Google's latest Gemini 2.5 Flash Image model
+- 📸 **Image-to-Image Generation** - Upload reference images to guide generation and editing
+- 🎨 **Smart Aspect Ratio Detection** - Automatically handles optimal sizing
 - 🔢 **Batch Generation** - Generate up to 4 images simultaneously
+- 💬 **Conversational AI** - Describe scenes naturally, not just keywords
 - 💾 **Instant Download** - Download generated images with one click
 - 🎭 **Neobrutalism Design** - Bold colors, thick borders, and retro aesthetic
+- 🔤 **High-Fidelity Text Rendering** - Accurately generate images with legible text
 
 ## 🚀 Getting Started
 
@@ -44,39 +45,33 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 
 ### Text-to-Image Generation
 
-1. Enter a descriptive prompt (up to 480 characters)
-2. Select your preferred model, aspect ratio, and number of images
+1. Enter a descriptive prompt (up to 480 characters) - **describe the scene naturally**
+2. Select the number of images to generate (1-4)
 3. Click "Generate Images"
 4. Download your generated images
 
-### Image-to-Image Generation
+### Image-to-Image Generation (Editing)
 
 1. Click "Upload Image" to add a reference image
 2. Enter a prompt describing the modifications you want
-3. Configure settings and click "Generate Images"
-4. Your reference image will guide the generation process
+3. Select the number of variations to generate
+4. Click "Generate Images"
+5. Your reference image will guide the generation process
 
-## 🎨 Available Models
+## 💡 Prompting Tips
 
-- **Imagen 4.0 Ultra** - Highest quality, 2K resolution
-- **Imagen 4.0 Standard** - Good quality, 1K resolution
-- **Imagen 4.0 Fast** - Faster generation, good quality
-- **Imagen 3** - Previous generation model
-
-## 📐 Aspect Ratios
-
-- 1:1 (Square)
-- 3:4 (Portrait)
-- 4:3 (Landscape)
-- 9:16 (Vertical)
-- 16:9 (Wide)
+- **Describe the scene, don't just list keywords** - Narrative descriptions work best
+- Use natural language and full sentences
+- Be specific about details, style, lighting, and composition
+- For editing: Clearly describe what to change while keeping context
+- All generated images include a SynthID watermark
 
 ## 🛠️ Tech Stack
 
 - **Framework:** Next.js 15
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS + Custom Neobrutalism CSS
-- **AI:** Google Gemini Imagen 4.0 API
+- **AI:** Gemini 2.5 Flash Image (Nano Banana) API
 - **Deployment:** Vercel-ready
 
 ## 📁 Project Structure

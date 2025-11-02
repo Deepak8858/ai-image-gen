@@ -5,8 +5,6 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const prompt = formData.get('prompt') as string;
     const numberOfImages = parseInt(formData.get('numberOfImages') as string) || 1;
-    const aspectRatio = formData.get('aspectRatio') as string || '1:1';
-    const model = formData.get('model') as string || 'imagen-4.0-ultra-generate-001';
     const referenceImage = formData.get('referenceImage') as File;
 
     if (!prompt || !prompt.trim()) {
@@ -34,52 +32,97 @@ export async function POST(request: NextRequest) {
     // Convert image to base64
     const arrayBuffer = await referenceImage.arrayBuffer();
     const base64Image = Buffer.from(arrayBuffer).toString('base64');
+    
+    // Determine MIME type
+    const mimeType = referenceImage.type || 'image/png';
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:predict`;
+    // Use Gemini 2.5 Flash Image (Nano Banana)
+    const modelName = 'gemini-2.5-flash-image';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
 
-    const requestBody = {
-      instances: [
-        {
-          prompt: prompt.trim(),
-          image: {
-            bytesBase64Encoded: base64Image,
+    // Generate images sequentially to avoid rate limits
+    const images = [];
+    const errors = [];
+
+    for (let i = 0; i < numberOfImages; i++) {
+      try {
+        const requestBody = {
+          contents: [{
+            parts: [
+              { text: prompt.trim() },
+              {
+                inlineData: {
+                  mimeType: mimeType,
+                  data: base64Image
+                }
+              }
+            ]
+          }]
+        };
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
           },
-        },
-      ],
-      parameters: {
-        sampleCount: numberOfImages,
-        aspectRatio: aspectRatio,
-        personGeneration: 'allow_adult',
-      },
-    };
+          body: JSON.stringify(requestBody),
+        });
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
-      },
-      body: JSON.stringify(requestBody),
-    });
+        if (!response.ok) {
+          const errorData = await response.text();
+          console.error(`Gemini API Error (image ${i + 1}/${numberOfImages}):`, errorData);
+          errors.push({
+            index: i + 1,
+            error: `Failed: ${response.statusText}`,
+            details: errorData
+          });
+          continue; // Continue generating other images
+        }
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Gemini API Error:', errorData);
+        const data = await response.json();
+        
+        // Extract image data from response
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        for (const part of parts) {
+          if (part.inlineData) {
+            images.push({
+              data: part.inlineData.data,
+              mimeType: part.inlineData.mimeType || 'image/png',
+            });
+          }
+        }
+
+        // Add small delay between requests to avoid rate limiting
+        if (i < numberOfImages - 1) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+      } catch (err: any) {
+        console.error(`Error generating image ${i + 1}/${numberOfImages}:`, err);
+        errors.push({
+          index: i + 1,
+          error: err.message || 'Unknown error'
+        });
+      }
+    }
+
+    // Return results with partial success handling
+    if (images.length === 0) {
       return NextResponse.json(
-        { error: `API request failed: ${response.statusText}`, details: errorData },
-        { status: response.status }
+        { 
+          error: 'All image generations failed', 
+          details: errors 
+        },
+        { status: 500 }
       );
     }
 
-    const data = await response.json();
-    
-    // Extract image data from predictions
-    const images = data.predictions?.map((pred: any) => ({
-      data: pred.bytesBase64Encoded || pred.image?.bytesBase64Encoded,
-      mimeType: pred.mimeType || 'image/png',
-    })) || [];
-
-    return NextResponse.json({ images });
+    return NextResponse.json({ 
+      images,
+      success: images.length,
+      failed: errors.length,
+      errors: errors.length > 0 ? errors : undefined
+    });
   } catch (error: any) {
     console.error('Error generating images with reference:', error);
     return NextResponse.json(

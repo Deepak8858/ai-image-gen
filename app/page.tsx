@@ -12,8 +12,6 @@ interface GeneratedImage {
 export default function Home() {
   const [prompt, setPrompt] = useState('');
   const [numberOfImages, setNumberOfImages] = useState(1);
-  const [aspectRatio, setAspectRatio] = useState('1:1');
-  const [model, setModel] = useState('imagen-4.0-ultra-generate-001');
   const [referenceImage, setReferenceImage] = useState<File | null>(null);
   const [referenceImagePreview, setReferenceImagePreview] = useState<string | null>(null);
   const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
@@ -58,8 +56,6 @@ export default function Home() {
         const formData = new FormData();
         formData.append('prompt', prompt);
         formData.append('numberOfImages', numberOfImages.toString());
-        formData.append('aspectRatio', aspectRatio);
-        formData.append('model', model);
         formData.append('referenceImage', referenceImage);
 
         response = await fetch('/api/generate-with-image', {
@@ -76,8 +72,6 @@ export default function Home() {
           body: JSON.stringify({
             prompt,
             numberOfImages,
-            aspectRatio,
-            model,
           }),
         });
       }
@@ -118,7 +112,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-black uppercase mb-2">
             AI IMAGE GEN
           </h1>
-          <p className="text-lg font-bold">Powered by Google Gemini Imagen 4.0 Ultra</p>
+          <p className="text-lg font-bold">Powered by Gemini 2.5 Flash Image (Nano Banana)</p>
         </div>
       </header>
 
@@ -180,53 +174,20 @@ export default function Home() {
           </div>
 
           {/* Configuration Options */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div>
-              <label className="block font-bold mb-2 uppercase text-sm">Model</label>
-              <select
-                className="neo-select w-full"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-              >
-                <option value="imagen-4.0-ultra-generate-001">Ultra (2K)</option>
-                <option value="imagen-4.0-generate-001">Standard (1K)</option>
-                <option value="imagen-4.0-fast-generate-001">Fast</option>
-                <option value="imagen-3.0-generate-002">Imagen 3</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block font-bold mb-2 uppercase text-sm">
-                Aspect Ratio
-              </label>
-              <select
-                className="neo-select w-full"
-                value={aspectRatio}
-                onChange={(e) => setAspectRatio(e.target.value)}
-              >
-                <option value="1:1">1:1 (Square)</option>
-                <option value="3:4">3:4 (Portrait)</option>
-                <option value="4:3">4:3 (Landscape)</option>
-                <option value="9:16">9:16 (Vertical)</option>
-                <option value="16:9">16:9 (Wide)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block font-bold mb-2 uppercase text-sm">
-                Number of Images
-              </label>
-              <select
-                className="neo-select w-full"
-                value={numberOfImages}
-                onChange={(e) => setNumberOfImages(parseInt(e.target.value))}
-              >
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-              </select>
-            </div>
+          <div className="mb-4">
+            <label className="block font-bold mb-2 uppercase text-sm">
+              Number of Images
+            </label>
+            <select
+              className="neo-select w-full"
+              value={numberOfImages}
+              onChange={(e) => setNumberOfImages(parseInt(e.target.value))}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+            </select>
           </div>
 
           {/* Generate Button */}

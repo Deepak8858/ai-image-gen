@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, numberOfImages, aspectRatio, model } = await request.json();
+    const { prompt, numberOfImages } = await request.json();
 
     if (!prompt || !prompt.trim()) {
       return NextResponse.json(
@@ -19,46 +19,86 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use Imagen 4.0 Ultra for highest resolution (2K)
-    const modelName = model || 'imagen-4.0-ultra-generate-001';
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:predict`;
+    // Use Gemini 2.5 Flash Image (Nano Banana)
+    const modelName = 'gemini-2.5-flash-image';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
 
-    const requestBody = {
-      instances: [{ prompt: prompt.trim() }],
-      parameters: {
-        sampleCount: numberOfImages || 1,
-        aspectRatio: aspectRatio || '1:1',
-        personGeneration: 'allow_adult',
-      },
-    };
+    // Generate images sequentially to avoid rate limits
+    const count = numberOfImages || 1;
+    const images = [];
+    const errors = [];
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
-      },
-      body: JSON.stringify(requestBody),
-    });
+    for (let i = 0; i < count; i++) {
+      try {
+        const requestBody = {
+          contents: [{
+            parts: [{ text: prompt.trim() }]
+          }]
+        };
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Gemini API Error:', errorData);
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.text();
+          console.error(`Gemini API Error (image ${i + 1}/${count}):`, errorData);
+          errors.push({
+            index: i + 1,
+            error: `Failed: ${response.statusText}`,
+            details: errorData
+          });
+          continue; // Continue generating other images
+        }
+
+        const data = await response.json();
+        
+        // Extract image data from response
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        for (const part of parts) {
+          if (part.inlineData) {
+            images.push({
+              data: part.inlineData.data,
+              mimeType: part.inlineData.mimeType || 'image/png',
+            });
+          }
+        }
+
+        // Add small delay between requests to avoid rate limiting
+        if (i < count - 1) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+      } catch (err: any) {
+        console.error(`Error generating image ${i + 1}/${count}:`, err);
+        errors.push({
+          index: i + 1,
+          error: err.message || 'Unknown error'
+        });
+      }
+    }
+
+    // Return results with partial success handling
+    if (images.length === 0) {
       return NextResponse.json(
-        { error: `API request failed: ${response.statusText}`, details: errorData },
-        { status: response.status }
+        { 
+          error: 'All image generations failed', 
+          details: errors 
+        },
+        { status: 500 }
       );
     }
 
-    const data = await response.json();
-    
-    // Extract image data from predictions
-    const images = data.predictions?.map((pred: any) => ({
-      data: pred.bytesBase64Encoded || pred.image?.bytesBase64Encoded,
-      mimeType: pred.mimeType || 'image/png',
-    })) || [];
-
-    return NextResponse.json({ images });
+    return NextResponse.json({ 
+      images,
+      success: images.length,
+      failed: errors.length,
+      errors: errors.length > 0 ? errors : undefined
+    });
   } catch (error: any) {
     console.error('Error generating images:', error);
     return NextResponse.json(
