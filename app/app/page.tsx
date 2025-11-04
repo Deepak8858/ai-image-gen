@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import VirtualTryOn from '../components/VirtualTryOn';
+import ThemeToggle from '@/components/ThemeToggle';
 import './app.css';
 
 interface GeneratedImage {
@@ -254,6 +255,7 @@ export default function AppPage() {
               <span>👤</span>
               <span>{user?.email}</span>
             </div>
+            <ThemeToggle />
             <button onClick={handleLogout} className="app-logout-btn">
               Logout
             </button>

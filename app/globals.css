@@ -2,15 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* Material Design 3 Light Theme */
+:root,
+[data-theme='light'] {
   --neo-black: #000000;
-  --neo-white: #253E4C; /* Base background */
+  --neo-white: #F3F3E3; /* Off-white background */
   --neo-yellow: #F3F3E3; /* Map yellow to base cream */
   --neo-pink: #E9631A;  /* Map to accent */
   --neo-blue: #E4281F;  /* Map to primary */
   --neo-green: #E9631A; /* Map to accent */
   --neo-purple: #E4281F;/* Map to primary */
   --neo-orange: #E9631A;/* Accent */
+
+  /* MD3 Tokens */
+  --bg: #F3F3E3;
+  --surface: #FFFFFF;
+  --surface-variant: #F1EFE7;
+  --text: #0F172A;
+  --text-secondary: #475569;
+  --muted: #64748B;
+  --border: rgba(15, 23, 42, 0.08);
+  --ring: rgba(228, 40, 31, 0.35);
+  
+  --primary: #E4281F;
+  --primary-hover: #C4221A;
+  --accent: #E9631A;
+  --accent-hover: #D55615;
+}
+
+/* Material Design 3 Dark Theme */
+[data-theme='dark'] {
+  --neo-black: #F1F5F9;
+  --neo-white: #0F172A;
+  --neo-yellow: #1E293B;
+  --neo-pink: #FF8A65;
+  --neo-blue: #FF5449;
+  --neo-green: #FF8A65;
+  --neo-purple: #FF5449;
+  --neo-orange: #FF8A65;
+
+  /* MD3 Dark Tokens */
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --surface-variant: #334155;
+  --text: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --muted: #94A3B8;
+  --border: rgba(241, 245, 249, 0.1);
+  --ring: rgba(255, 84, 73, 0.5);
+  
+  --primary: #FF5449;
+  --primary-hover: #FF7066;
+  --accent: #FF8A65;
+  --accent-hover: #FFA082;
 }
 
 * {
@@ -20,15 +64,16 @@
 }
 
 body {
-  font-family: 'Arial', 'Helvetica', sans-serif;
-  background: var(--neo-white);
-  color: var(--neo-black);
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Arial', 'Helvetica', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Links and accents */
- a { color: #E4281F; }
- a:hover { color: #E9631A; }
+ a { color: var(--primary); transition: color 0.2s ease; }
+ a:hover { color: var(--accent); }
 
 /* Neobrutalism utilities */
 .neo-border {
@@ -329,4 +374,47 @@ body {
 
 .success-bounce {
   animation: success-bounce 0.5s ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.06);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--surface-variant);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(16,24,40,0.1);
+}
+
+.theme-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.06);
+}
+
+.theme-toggle-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:hover svg {
+  transform: rotate(15deg);
+}
+
+[data-theme='dark'] .theme-toggle-btn {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+[data-theme='dark'] .theme-toggle-btn:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }

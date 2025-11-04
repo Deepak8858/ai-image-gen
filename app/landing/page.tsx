@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import ThemeToggle from '@/components/ThemeToggle';
 import './landing.css';
 
 export default function LandingPage() {
@@ -83,6 +84,7 @@ export default function LandingPage() {
               <a href="#features" className="nav-link">Features</a>
               <a href="#pricing" className="nav-link">Pricing</a>
               <a href="#about" className="nav-link">About</a>
+              <ThemeToggle />
               <Link href="/" className="nav-button-outline">
                 Try Demo
               </Link>
