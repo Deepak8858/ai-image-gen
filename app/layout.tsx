@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import './globals.css'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 export const metadata: Metadata = {
   title: 'AI Image Gen Pro - Professional AI Image Generator',
   description: 'Advanced AI image generation platform powered by Google Gemini 2.5 Flash. Features batch generation, style presets, negative prompts, smart history, and more professional tools.',
   keywords: ['AI image generator', 'Gemini', 'text to image', 'AI art', 'image generation', 'Gemini 2.5 Flash'],
   authors: [{ name: 'AI Image Gen Pro' }],
-  viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#ffd700',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#6750A4',
 }
 
 export default function RootLayout({
@@ -19,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Script
           src="https://bm3ggpiakhmxbwfoaqsea55b.agents.do-ai.run/static/chatbot/widget.js"
           data-agent-id="d0a2866a-b632-11f0-b074-4e013e2ddde4"

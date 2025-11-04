@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
-import './landing/landing.css';
+import './landing.css';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -84,10 +83,10 @@ export default function LandingPage() {
               <a href="#features" className="nav-link">Features</a>
               <a href="#pricing" className="nav-link">Pricing</a>
               <a href="#about" className="nav-link">About</a>
-              <Link href="/login" className="nav-button-outline">
-                Sign In
+              <Link href="/" className="nav-button-outline">
+                Try Demo
               </Link>
-              <Link href="/signup" className="nav-button-filled">
+              <Link href="/" className="nav-button-filled">
                 Get Started
               </Link>
             </div>
@@ -108,9 +107,8 @@ export default function LandingPage() {
               <a href="#features" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Features</a>
               <a href="#pricing" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
               <a href="#about" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>About</a>
-              <Link href="/login" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
-              <Link href="/signup" className="mobile-button">
-                Get Started
+              <Link href="/" className="mobile-button">
+                Try Demo
               </Link>
             </div>
           )}
@@ -120,88 +118,40 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-container">
-          <div className="hero-grid">
-            <div className="hero-left">
-              <div className="hero-badge">
-                <span className="badge-dot"></span>
-                NEW: Virtual Try-On Technology
-              </div>
-              <h1 className="hero-title">
-                Generate Stunning Images with
-                <span className="hero-gradient"> AI Magic</span>
-              </h1>
-              <p className="hero-subtitle">
-                Transform your ideas into professional-quality images using state-of-the-art
-                Gemini AI. No design skills required.
-              </p>
-              <div className="hero-cta">
-                <Link href="/signup" className="cta-primary">
-                  Start Creating Free
-                  <span className="cta-arrow">→</span>
-                </Link>
-                <a href="#features" className="cta-secondary">
-                  Explore Features
-                </a>
-              </div>
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <div className="stat-number">10K+</div>
-                  <div className="stat-label">Images Generated</div>
-                </div>
-                <div className="stat-item">
-                  <div className="stat-number">500+</div>
-                  <div className="stat-label">Happy Users</div>
-                </div>
-                <div className="stat-item">
-                  <div className="stat-number">6</div>
-                  <div className="stat-label">Style Presets</div>
-                </div>
-              </div>
-            </div>
-            <div className="hero-right">
-              <div className="screenshot-frame">
-                <div className="screenshot-header">
-                  <span className="dot red"></span>
-                  <span className="dot yellow"></span>
-                  <span className="dot green"></span>
-                </div>
-                <div className="screenshot-body">
-                  <Image
-                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=60"
-                    alt="AI Generated Artwork"
-                    width={1200}
-                    height={800}
-                    className="screenshot-img"
-                    priority
-                  />
-                </div>
-              </div>
-              <div className="hero-float-cards">
-                <div className="float-card">
-                  <span>⚡ Fast Generation</span>
-                </div>
-                <div className="float-card">
-                  <span>🧠 Smart Presets</span>
-                </div>
-                <div className="float-card">
-                  <span>👔 Virtual Try-On</span>
-                </div>
-              </div>
-            </div>
+          <div className="hero-badge">
+            <span className="badge-dot"></span>
+            NEW: Virtual Try-On Technology
           </div>
-        </div>
-      </section>
-
-      {/* Trust Bar */}
-      <section className="trustbar-section">
-        <div className="trustbar-container">
-          <p className="trustbar-title">Trusted by creators and teams at</p>
-          <div className="trustbar-logos">
-            <img src="https://dummyimage.com/120x32/000/fff&text=ACME" alt="ACME" />
-            <img src="https://dummyimage.com/120x32/000/fff&text=NOVA" alt="NOVA" />
-            <img src="https://dummyimage.com/120x32/000/fff&text=PIXEL" alt="PIXEL" />
-            <img src="https://dummyimage.com/120x32/000/fff&text=OMEGA" alt="OMEGA" />
-            <img src="https://dummyimage.com/120x32/000/fff&text=VIBE" alt="VIBE" />
+          <h1 className="hero-title">
+            Generate Stunning Images with
+            <span className="hero-gradient"> AI Magic</span>
+          </h1>
+          <p className="hero-subtitle">
+            Transform your ideas into professional-quality images using state-of-the-art 
+            Gemini AI. No design skills required.
+          </p>
+          <div className="hero-cta">
+            <Link href="/" className="cta-primary">
+              Start Creating Free
+              <span className="cta-arrow">→</span>
+            </Link>
+            <a href="#features" className="cta-secondary">
+              Explore Features
+            </a>
+          </div>
+          <div className="hero-stats">
+            <div className="stat-item">
+              <div className="stat-number">10K+</div>
+              <div className="stat-label">Images Generated</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">500+</div>
+              <div className="stat-label">Happy Users</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">6</div>
+              <div className="stat-label">Style Presets</div>
+            </div>
           </div>
         </div>
       </section>
@@ -224,30 +174,6 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          {/* Use Cases */}
-          <div className="usecases">
-            <div className="usecase-card">
-              <Image src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=60" alt="Marketing visuals" width={900} height={600} />
-              <div className="usecase-content">
-                <h3>Marketing Visuals</h3>
-                <p>Create campaign-ready visuals in minutes with brand-safe presets.</p>
-              </div>
-            </div>
-            <div className="usecase-card">
-              <Image src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=60" alt="Product shots" width={900} height={600} />
-              <div className="usecase-content">
-                <h3>Product Shots</h3>
-                <p>Generate studio-quality scenes for ecommerce and ads.</p>
-              </div>
-            </div>
-            <div className="usecase-card">
-              <Image src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=900&q=60" alt="Concept art" width={900} height={600} />
-              <div className="usecase-content">
-                <h3>Concept Art</h3>
-                <p>Explore styles and iterate faster with guided prompts.</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -268,7 +194,7 @@ export default function LandingPage() {
                 <li>⛔ Negative prompt control</li>
                 <li>📊 Real-time progress tracking</li>
               </ul>
-              <Link href="/signup" className="showcase-cta">
+              <Link href="/" className="showcase-cta">
                 Try Image-to-Image
               </Link>
             </div>
@@ -319,82 +245,11 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/signup" className={`pricing-cta ${plan.popular ? 'cta-popular' : ''}`}>
+                <Link href="/" className={`pricing-cta ${plan.popular ? 'cta-popular' : ''}`}>
                   {plan.cta}
                 </Link>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="testimonials-section">
-        <div className="section-container">
-          <div className="section-header">
-            <h2 className="section-title">Loved by Creators</h2>
-            <p className="section-subtitle">What our users are saying</p>
-          </div>
-          <div className="testimonials-marquee">
-            <div className="marquee-track">
-              <div className="testimonial">
-                <img src="https://i.pravatar.cc/56?img=12" alt="avatar" />
-                <p>“The fastest way we produce ad creatives now. Quality is insane.”</p>
-                <span>— Maya, Growth Marketer</span>
-              </div>
-              <div className="testimonial">
-                <img src="https://i.pravatar.cc/56?img=22" alt="avatar" />
-                <p>“Our design iteration time dropped from days to hours.”</p>
-                <span>— Liam, Product Designer</span>
-              </div>
-              <div className="testimonial">
-                <img src="https://i.pravatar.cc/56?img=32" alt="avatar" />
-                <p>“Virtual Try-On is a game changer for our store.”</p>
-                <span>— Aisha, Ecommerce Lead</span>
-              </div>
-              <div className="testimonial">
-                <img src="https://i.pravatar.cc/56?img=42" alt="avatar" />
-                <p>“Looks like a full studio shoot without the cost.”</p>
-                <span>— Ben, Content Creator</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section className="gallery-section">
-        <div className="section-container">
-          <div className="gallery-grid">
-            <Image src="https://images.unsplash.com/photo-1517817748493-49ec54a32465?auto=format&fit=crop&w=800&q=60" alt="Gallery 1" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=60" alt="Gallery 2" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=800&q=60" alt="Gallery 3" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?auto=format&fit=crop&w=800&q=60" alt="Gallery 4" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=800&q=60" alt="Gallery 5" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1526483360412-f4dbaf036963?auto=format&fit=crop&w=800&q=60" alt="Gallery 6" width={800} height={1000} />
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="faq-section">
-        <div className="section-container">
-          <div className="section-header">
-            <h2 className="section-title">Frequently Asked Questions</h2>
-          </div>
-          <div className="faq-list">
-            <details className="faq-item" open>
-              <summary>Is there a free plan?</summary>
-              <p>Yes, our Starter plan includes 50 images/month. No credit card required.</p>
-            </details>
-            <details className="faq-item">
-              <summary>Can I use the images commercially?</summary>
-              <p>Yes, you have full commercial rights to images you generate.</p>
-            </details>
-            <details className="faq-item">
-              <summary>Do you support team accounts?</summary>
-              <p>Our Enterprise plan includes team management and SSO options.</p>
-            </details>
           </div>
         </div>
       </section>
@@ -408,7 +263,7 @@ export default function LandingPage() {
               Join thousands of creators using AI Image Gen Pro to bring their ideas to life
             </p>
             <div className="cta-buttons">
-              <Link href="/signup" className="cta-button-primary">
+              <Link href="/" className="cta-button-primary">
                 Get Started Free
               </Link>
               <a href="#pricing" className="cta-button-secondary">
@@ -436,7 +291,7 @@ export default function LandingPage() {
               <h4 className="footer-heading">Product</h4>
               <a href="#features" className="footer-link">Features</a>
               <a href="#pricing" className="footer-link">Pricing</a>
-              <Link href="/signup" className="footer-link">Sign Up</Link>
+              <Link href="/" className="footer-link">Demo</Link>
             </div>
             <div className="footer-links">
               <h4 className="footer-heading">Resources</h4>
