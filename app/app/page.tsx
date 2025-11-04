@@ -49,10 +49,23 @@ export default function AppPage() {
     }
   }, []);
 
-  // Save to localStorage
+  // Save to localStorage with quota management
   useEffect(() => {
     if (generatedImages.length > 0) {
-      localStorage.setItem('ai-image-gen-history', JSON.stringify(generatedImages));
+      try {
+        // Keep only the latest 50 images to prevent quota issues
+        const limitedImages = generatedImages.slice(0, 50);
+        localStorage.setItem('ai-image-gen-history', JSON.stringify(limitedImages));
+      } catch (e) {
+        // If still quota exceeded, keep only 20 most recent
+        console.warn('LocalStorage quota exceeded, reducing to 20 images');
+        try {
+          const veryLimitedImages = generatedImages.slice(0, 20);
+          localStorage.setItem('ai-image-gen-history', JSON.stringify(veryLimitedImages));
+        } catch (finalError) {
+          console.error('Unable to save to localStorage:', finalError);
+        }
+      }
     }
   }, [generatedImages]);
 
@@ -249,16 +262,23 @@ export default function AppPage() {
       </header>
 
       <div className="app-container">
+        {/* Storage Notice */}
+        {generatedImages.length > 40 && (
+          <div className="md-alert md-alert-warning mb-24">
+            ⚠️ Storage limit: Keeping latest 50 images. Download important ones to avoid losing them.
+          </div>
+        )}
+
         {/* Quick Actions */}
-        <div className="md-card" style={{ marginBottom: '24px' }}>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <button onClick={() => setShowVirtualTryOn(true)} className="md-btn md-btn-secondary" style={{ flex: 1, minWidth: '200px' }}>
+        <div className="md-card">
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <button onClick={() => setShowVirtualTryOn(true)} className="md-btn md-btn-secondary" style={{ flex: 1, minWidth: '220px' }}>
               👔 Virtual Try-On
             </button>
             <button 
               onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} 
               className="md-btn md-btn-outline"
-              style={{ flex: 1, minWidth: '200px' }}
+              style={{ flex: 1, minWidth: '220px' }}
               disabled={generatedImages.length === 0}
             >
               🖼️ View Gallery ({generatedImages.length})

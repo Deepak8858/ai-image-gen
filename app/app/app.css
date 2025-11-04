@@ -79,7 +79,13 @@
 .app-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 40px 24px;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 24px 16px;
+  }
 }
 
 /* Card Component */
@@ -88,9 +94,16 @@
   border: 3px solid #000;
   border-radius: 16px;
   box-shadow: 6px 6px 0px #000;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 28px;
+  margin-bottom: 28px;
   transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  .md-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 .md-card:hover {
@@ -102,7 +115,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #F3F3E3;
 }
 
 .md-card-title {
@@ -324,7 +339,7 @@
 }
 
 .md-gallery-content {
-  padding: 16px;
+  padding: 20px;
 }
 
 .md-gallery-meta {
@@ -498,10 +513,26 @@
 }
 
 /* Utility Classes */
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
 .mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
 .mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
 .mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.p-16 { padding: 16px; }
+.p-24 { padding: 24px; }
 .text-center { text-align: center; }
 .text-sm { font-size: 13px; }
+.text-xs { font-size: 12px; }
 .font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
 .uppercase { text-transform: uppercase; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
