@@ -2,11 +2,22 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import './landing/landing.css';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  // Redirect to app if user is logged in
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/app');
+    }
+  }, [user, loading, router]);
 
   const features = [
     {
@@ -166,8 +177,7 @@ export default function LandingPage() {
                   <span className="dot green"></span>
                 </div>
                 <div className="screenshot-body">
-                  <Image
-                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=60"
+            <Image src="https://picsum.photos/id/1069/1200/800"
                     alt="AI Generated Artwork"
                     width={1200}
                     height={800}
@@ -371,7 +381,7 @@ export default function LandingPage() {
             <Image src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=800&q=60" alt="Gallery 3" width={800} height={1000} />
             <Image src="https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?auto=format&fit=crop&w=800&q=60" alt="Gallery 4" width={800} height={1000} />
             <Image src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=800&q=60" alt="Gallery 5" width={800} height={1000} />
-            <Image src="https://images.unsplash.com/photo-1526483360412-f4dbaf036963?auto=format&fit=crop&w=800&q=60" alt="Gallery 6" width={800} height={1000} />
+            <Image src="https://picsum.photos/id/1025/800/1000" alt="Gallery 6" width={800} height={1000} />
           </div>
         </div>
       </section>

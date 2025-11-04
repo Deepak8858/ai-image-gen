@@ -46,11 +46,11 @@
   width: 80px;
   height: 80px;
   margin: 0 auto 32px;
-  border: 6px solid rgba(103, 80, 164, 0.2);
-  border-top-color: #6750A4;
+  border: 6px solid rgba(228, 40, 31, 0.2);
+  border-top-color: #E4281F;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  box-shadow: 0 4px 12px rgba(103, 80, 164, 0.3);
+  box-shadow: 0 4px 12px rgba(228, 40, 31, 0.3);
 }
 
 @keyframes spin {
@@ -63,7 +63,7 @@
   color: #1C1B1F;
   margin-bottom: 12px;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #6750A4 0%, #9C27B0 100%);
+  background: linear-gradient(135deg, #E4281F 0%, #E9631A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

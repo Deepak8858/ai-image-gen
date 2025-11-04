@@ -5,7 +5,11 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const prompt = formData.get('prompt') as string;
     const numberOfImages = parseInt(formData.get('numberOfImages') as string) || 1;
-    const referenceImage = formData.get('referenceImage') as File;
+    let files = formData.getAll('referenceImages') as File[];
+    const single = formData.get('referenceImage') as File | null;
+    if ((!files || files.length === 0) && single) {
+      files = [single];
+    }
 
     if (!prompt || !prompt.trim()) {
       return NextResponse.json(
@@ -14,9 +18,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!referenceImage) {
+    if (!files || files.length === 0) {
       return NextResponse.json(
-        { error: 'Reference image is required' },
+        { error: 'At least one reference image is required' },
         { status: 400 }
       );
     }
@@ -29,12 +33,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convert image to base64
-    const arrayBuffer = await referenceImage.arrayBuffer();
-    const base64Image = Buffer.from(arrayBuffer).toString('base64');
-    
-    // Determine MIME type
-    const mimeType = referenceImage.type || 'image/png';
+    // Convert images to base64 parts
+    const inlineParts = [] as Array<{ inlineData: { mimeType: string; data: string } }>;
+    for (const file of files) {
+      const arrayBuffer = await file.arrayBuffer();
+      const base64Image = Buffer.from(arrayBuffer).toString('base64');
+      const mimeType = file.type || 'image/png';
+      inlineParts.push({ inlineData: { mimeType, data: base64Image } });
+    }
 
     // Use Gemini 2.5 Flash Image (Nano Banana)
     const modelName = 'gemini-2.5-flash-image';
@@ -50,12 +56,7 @@ export async function POST(request: NextRequest) {
           contents: [{
             parts: [
               { text: prompt.trim() },
-              {
-                inlineData: {
-                  mimeType: mimeType,
-                  data: base64Image
-                }
-              }
+              ...inlineParts
             ]
           }]
         };

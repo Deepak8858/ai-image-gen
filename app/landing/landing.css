@@ -1,14 +1,14 @@
 /* Material Design 3 + Neobrutalism Landing Page Styles */
 
 .landing-page {
-  --md-sys-color-primary: #6750A4;
+  --md-sys-color-primary: #E4281F; /* Primary Red */
   --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #EADDFF;
-  --md-sys-color-on-primary-container: #21005D;
-  --md-sys-color-secondary: #625B71;
-  --md-sys-color-surface: #FEF7FF;
-  --md-sys-color-surface-variant: #E7E0EC;
-  --md-sys-color-outline: #79747E;
+  --md-sys-color-primary-container: #F3F3E3; /* Cream */
+  --md-sys-color-on-primary-container: #1C1B1F;
+  --md-sys-color-secondary: #E9631A; /* Accent Orange */
+  --md-sys-color-surface: #F3F3E3;
+  --md-sys-color-surface-variant: #ECE8D8;
+  --md-sys-color-outline: #000000;
   --md-sys-color-error: #BA1A1A;
   
   /* Neobrutalism accents */
@@ -17,7 +17,7 @@
   --neo-shadow-hover: 6px 6px 0px #000;
   
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background: #FAFAFA;
+  background: #F3F3E3;
   color: #1C1B1F;
 }
 
@@ -85,11 +85,11 @@
 
 .nav-button-outline {
   padding: 10px 24px;
-  border: 2px solid var(--md-sys-color-primary);
+  border: 2px solid #E4281F;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--md-sys-color-primary);
+  color: #E4281F;
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -103,8 +103,8 @@
   padding: 10px 24px;
   border: var(--neo-border);
   border-radius: 20px;
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  background: #E4281F;
+  color: #FFFFFF;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -257,7 +257,7 @@
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #6750A4 0%, #9C27B0 50%, #E91E63 100%);
+  background: linear-gradient(135deg, #E4281F 0%, #E9631A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -316,12 +316,12 @@
 
 .cta-secondary {
   padding: 16px 32px;
-  background: white;
-  color: var(--md-sys-color-primary);
+  background: #FFFFFF;
+  color: #E4281F;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
-  border: 2px solid var(--md-sys-color-outline);
+  border: 2px solid #000000;
   border-radius: 28px;
   transition: all 0.2s;
 }
@@ -709,7 +709,7 @@
 /* ========== CTA Section ========== */
 .cta-section {
   padding: 100px 24px;
-  background: linear-gradient(135deg, #6750A4 0%, #9C27B0 100%);
+  background: linear-gradient(135deg, #E4281F 0%, #E9631A 100%);
   position: relative;
   overflow: hidden;
 }
@@ -750,8 +750,8 @@
 
 .cta-button-primary {
   padding: 16px 36px;
-  background: white;
-  color: var(--md-sys-color-primary);
+  background: #FFFFFF;
+  color: #E4281F;
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;

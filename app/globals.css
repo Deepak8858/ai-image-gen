@@ -4,13 +4,13 @@
 
 :root {
   --neo-black: #000000;
-  --neo-white: #ffffff;
-  --neo-yellow: #ffd700;
-  --neo-pink: #ff6b9d;
-  --neo-blue: #4da6ff;
-  --neo-green: #00ff88;
-  --neo-purple: #b19cd9;
-  --neo-orange: #ff8c42;
+  --neo-white: #253E4C; /* Base background */
+  --neo-yellow: #F3F3E3; /* Map yellow to base cream */
+  --neo-pink: #E9631A;  /* Map to accent */
+  --neo-blue: #E4281F;  /* Map to primary */
+  --neo-green: #E9631A; /* Map to accent */
+  --neo-purple: #E4281F;/* Map to primary */
+  --neo-orange: #E9631A;/* Accent */
 }
 
 * {
@@ -25,6 +25,10 @@ body {
   color: var(--neo-black);
   line-height: 1.6;
 }
+
+/* Links and accents */
+ a { color: #E4281F; }
+ a:hover { color: #E9631A; }
 
 /* Neobrutalism utilities */
 .neo-border {

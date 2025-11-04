@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #F5F0FF 0%, #E8DEF8 100%);
+  background: linear-gradient(135deg, #F3F3E3 0%, #F3F3E3 100%);
   padding: 24px;
   position: relative;
   overflow: hidden;
@@ -18,7 +18,7 @@
   right: -50%;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(103, 80, 164, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(228, 40, 31, 0.12) 0%, transparent 70%);
   animation: float 20s infinite ease-in-out;
 }
 
@@ -75,7 +75,7 @@
 .auth-logo .logo-text {
   font-size: 20px;
   font-weight: 700;
-  color: #6750A4;
+  color: #E4281F;
 }
 
 .auth-title {
@@ -147,13 +147,13 @@
 .form-link {
   font-size: 13px;
   font-weight: 600;
-  color: #6750A4;
+  color: #E4281F;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .form-link:hover {
-  color: #4A3A7A;
+  color: #E9631A;
   text-decoration: underline;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .auth-button.primary {
-  background: #6750A4;
+  background: #E4281F;
   color: white;
   box-shadow: 4px 4px 0px #000;
   margin-bottom: 0;
@@ -315,7 +315,7 @@
 }
 
 .auth-footer-link {
-  color: #6750A4;
+  color: #E4281F;
   font-weight: 700;
   text-decoration: none;
 }
