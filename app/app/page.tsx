@@ -575,7 +575,7 @@ export default function AppPage() {
             <img
               src={`data:${selectedImage.mimeType};base64,${selectedImage.data}`}
               alt={selectedImage.prompt}
-              style={{ width: '100%', height: 'auto', marginBottom: '16px', borderRadius: '12px', border: '3px solid #000' }}
+              style={{ width: '100%', height: 'auto', marginBottom: '16px', borderRadius: '12px', border: '3px solid var(--neo-black)' }}
             />
             <div style={{ marginBottom: '12px' }}>
               <h4 className="font-bold mb-16">Prompt:</h4>
